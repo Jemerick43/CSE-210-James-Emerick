@@ -7,8 +7,7 @@ Purpose: <  Displays menu options and takes input based on menu.
             Displays Journal entries written to txt file.
             Closes program based on user input.
 Author: James Emerick
-Date: 
-
+Date: 10/07/2023
 */
 using System;
 using System.IO;

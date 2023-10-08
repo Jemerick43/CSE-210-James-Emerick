@@ -4,7 +4,7 @@ Purpose: <  Displays a random prompt to the user.
             Takes entry from user for Journal entry.
             Appends the entry to a designated txt file.>
 Author: James Emerick
-Date: 
+Date: 10/07/2023
 */
 using System;
 

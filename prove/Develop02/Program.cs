@@ -1,3 +1,10 @@
+/*
+Name: < Program >
+Purpose: Accesses NewEntry and Journal classes and creates journal entries.
+Author: James Emerick
+Date: 10/07/2023
+*/
+
 using System;
 
 class Program
