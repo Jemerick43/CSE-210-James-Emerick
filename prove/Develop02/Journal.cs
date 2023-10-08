@@ -7,20 +7,15 @@ Purpose: <  Displays menu options and takes input based on menu.
             Displays Journal entries written to txt file.
             Closes program based on user input.
 Author: James Emerick
-Date:
+Date: 
 
 */
 using System;
+using System.IO;
+using System.Text;
 
 class Journal
 {
-    List<string> _journalEntries;
-    string _fileName;
-    static void Main(string[] args)
-    {
-
-    }
-
     public string DisplayMenu()
     {
         string je_menuSelection;
@@ -43,13 +38,28 @@ class Journal
         return je_filename;
     }
 
-    public void RefreshFile(string _fileName, List<string> _journalEntries)
+    public void DisplayJournal(string _fileName)
     {
-
+        string jepath = _fileName;
+        string jejournal = File.ReadAllText(jepath);
+        Console.WriteLine(jejournal);
     }
 
-    public void DisplayJournal(List<string> _journalEntries)
+    public void UpdateFile(string _newEntry, List<string> _journalEntries)
     {
+        var jeNow = DateTime.Now; // initialize today's date
+        using (StreamWriter jeWriter = File.AppendText(_newEntry)) //initialize writer
+        {
+            jeWriter.WriteLine(jeNow);                             //write today's date to file
+        }
+        string jePath = _newEntry;  //initialize filename as a string
+        foreach (string entry in _journalEntries) //loop through list of strings
+        {
+            using (StreamWriter jeWriter = File.AppendText(_newEntry)) //initialize writer
+            {
+                jeWriter.WriteLine(entry); //write current string to file
+            }
+        }
 
     }
 

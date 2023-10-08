@@ -4,7 +4,7 @@ Purpose: <  Displays a random prompt to the user.
             Takes entry from user for Journal entry.
             Appends the entry to a designated txt file.>
 Author: James Emerick
-Date:
+Date: 
 */
 using System;
 
@@ -13,11 +13,7 @@ using System;
 class NewEntry
 {
     Random jerandomNumber = new Random();
-    string[] jePrompts = { "What was the best part of your day? ", "What went well today? ", "What did you enjoy doing today? " };
-    static void main(string[] args)
-    {
-
-    }
+    string[] jePrompts = { "What was the best part of your day? \n", "What went well today? \n", "What did you enjoy doing today? \n", "What are 3 things you are grateful for? \n", "How are you feeling? \n", "What did not go well today? \n" };
 
     public List<string> DisplayRandomPrompt()
     {
@@ -30,17 +26,14 @@ class NewEntry
             int jePromptIndex = jerandomNumber.Next(jePrompts.Length);
             Console.WriteLine("{0}", jePrompts[jePromptIndex]);
             string jeTempEntry = Console.ReadLine();
-            jeList.Add(jeTempEntry);
+            string jeJournalEntry = jePrompts[jePromptIndex] + " " + jeTempEntry;
+            jeList.Add(jeJournalEntry);
         }
+
         return jeList;
 
     }
 
-    public string UpdateFile(string _newEntry, List<string> _journalEntries)
-    {
-        string jeNewEntry = "";
-        return jeNewEntry;
-    }
 
 
 }
