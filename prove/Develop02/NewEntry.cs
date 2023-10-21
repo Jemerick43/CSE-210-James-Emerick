@@ -1,8 +1,7 @@
 /*
 Name: < New Entry >
 Purpose: <  Displays a random prompt to the user.
-            Takes entry from user for Journal entry.
-            Appends the entry to a designated txt file.>
+            Takes entry from user for Journal entry.>
 Author: James Emerick
 Date: 10/07/2023
 */
@@ -12,7 +11,7 @@ using System;
 
 class NewEntry
 {
-    Random jerandomNumber = new Random();
+    Random jerandomNumber = new();
     string[] jePrompts = { "What was the best part of your day? \n", "What went well today? \n", "What did you enjoy doing today? \n", "What are 3 things you are grateful for? \n", "How are you feeling? \n", "What did not go well today? \n" };
 
     public List<string> DisplayRandomPrompt()
