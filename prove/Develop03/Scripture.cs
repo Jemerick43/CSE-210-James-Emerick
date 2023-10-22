@@ -18,7 +18,7 @@ class Scripture
     private bool jeIsHidden;
     public string StoreScripture()
     {
-        Console.WriteLine("Please enter the text to be memorized: \n");
+        Console.WriteLine("Please enter the text to be memorized: ");
         _ToMemorize = Console.ReadLine();
         return _ToMemorize;
     }
