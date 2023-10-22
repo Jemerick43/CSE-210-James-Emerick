@@ -15,6 +15,7 @@ class Scripture
     private List<string> _List;
     private string _NewString;
     private List<int> _Hidden;
+    private bool jeIsHidden;
     public string StoreScripture()
     {
         Console.WriteLine("Please enter the text to be memorized: \n");
@@ -24,7 +25,7 @@ class Scripture
 
     public void DisplayScripture(string _scripture)
     {
-        Console.WriteLine("{0}", _scripture);
+        Console.WriteLine("\n\n{0}", _scripture);
     }
 
     public List<string> ToList(string _Scripture)
@@ -39,22 +40,25 @@ class Scripture
         return _NewString;
     }
 
-    public List<string> RandomizeList(List<string> scripture)
+    public string RandomizeList(string scripture)
     {
         Word jeNewWord = new();
-        _Hidden = jeNewWord.RandomizeList(scripture);
-        foreach (int jeWordRef in _Hidden)
-        {
-            scripture[jeWordRef] = "_____";
-        }
-
-
-        return scripture;
+        _NewString = jeNewWord.RandomizeList(scripture);
+        return _NewString;
     }
 
-    public bool IsStringHidden(List<string> scripture, List<int> hidden)
+    public bool IsStringHidden(string scripture)
     {
-
+        Word jeNewWord = new();
+        jeIsHidden = jeNewWord.IsHidden(scripture);
+        if (jeIsHidden)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

@@ -32,4 +32,16 @@ class Reference
 
                 return jeIsHidden;
         }
+
+        public void DisplayReference(string reference, bool hide)
+        {
+                if (hide == true)
+                {
+                        Console.WriteLine("\n_____:");
+                }
+                else
+                {
+                        Console.WriteLine("\n" + reference);
+                }
+        }
 }

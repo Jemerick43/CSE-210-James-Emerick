@@ -10,23 +10,58 @@ Date:
 class Word
 {
     private Random jeRand = new();
-    private int jeHideWords = 0;
-    public List<int> RandomizeList(List<string> strings)
+    private bool jeHidden;
+    private List<string> _List;
+    private string _NewString;
+    public string RandomizeList(string strings)
     {
-
-
-        Console.WriteLine("Please enter the number of words you wish to hide: ");
-        jeHideWords = int.Parse(Console.ReadLine());
+        List<string> tempList = ToList(strings);
+        int rand = jeRand.Next(1, 3);
         int i = 0;
-        var jeHiddenStrings = new List<int>();
-        while (i <= jeHideWords)
+        while (i <= rand)
         {
-            int jeLocation = jeRand.Next(0, strings.Count);
-            i++;
-
+            int location = jeRand.Next(0, tempList.Count);
+            if (tempList[location].Contains('_'))
+            {
+                continue;
+            }
+            else
+            {
+                tempList[location] = "___";
+                i++;
+            }
         }
+        strings = ToString(tempList);
 
+        return strings;
+    }
 
-        return jeHiddenStrings;
+    public bool IsHidden(string script)
+    {
+        List<string> jeScript = ToList(script);
+        foreach (string word in jeScript)
+        {
+            if (word.Contains('_'))
+            {
+                jeHidden = true;
+            }
+            else
+            {
+                jeHidden = false;
+            }
+        }
+        return jeHidden;
+    }
+
+    public List<string> ToList(string _Scripture)
+    {
+        _List = _Scripture.Split(' ').ToList(); //Separates words by splitting the string at blank spaces (' ')
+        return _List;
+    }
+
+    public string ToString(List<string> list)
+    {
+        _NewString = string.Join(" ", list.ToArray());
+        return _NewString;
     }
 }
