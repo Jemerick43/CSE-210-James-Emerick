@@ -58,7 +58,6 @@ class Program
             else if (choice == 5)
             {
                 Console.WriteLine("Which goal would you like to update? ");
-                foreach ()
             }
             else
             {
