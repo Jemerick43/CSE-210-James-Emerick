@@ -5,53 +5,49 @@ Author: James Emerick
 Date: 11/15/2023
 */
 
-class Goals
+
+abstract public class Goals
 {
-    private int _iterate;
-    private string _name;
-    private string _description;
-    private int _type;
-    private int _points;
-    private bool _ifComplete;
+    private bool _isComplete;
+    private readonly int _points;
+    private int _goalType;
+    private string _goal;
     private List<string> _goalTypes = new() { "Simple Goal", "Eternal Goal", "Checklist Goal" };
-    private List<string> _goals = new();
-    public int NewGoal() //Iterates through default list of goal types and gets user input for which type they would like to create
+    private List<string> _goals;
+    public virtual int GetGoal()
     {
-        foreach (string jeGoal in _goalTypes)
-        {
-            ++_iterate;
-            Console.WriteLine("{0}. {1}", _iterate, jeGoal);
-        }
-        Console.WriteLine("Which type of goal would you like to create?");
-        _type = int.Parse(Console.ReadLine());
-        return _type;
+        Console.WriteLine("The types of Goals are:\n\t1. {0}\n\t2. {1}\n\t3. {2}", _goalTypes[0], _goalTypes[1], _goalTypes[2]);
+        Console.WriteLine("Which type of goal would you like to create? (answer 1, 2, or 3)");
+        _goalType = int.Parse(Console.ReadLine());
+        return _goalType;
     }
-    public virtual string NewName() //Obtains name of goal from user
+    public virtual string SetGoal()
     {
-        Console.WriteLine("What is the name of your goal?");
-        _name = Console.ReadLine();
-        return _name;
+        return _goal;
     }
-    public int TimesToComplete() //Obtains the number of times to complete a list goal from user
+    public virtual string DisplayGoal(string goal)
     {
-        Console.WriteLine("How many times must you complete this goal? ");
-        _type = int.Parse(Console.ReadLine());
-        return _type;
+        _goal = goal;
+        return _goal;
     }
-    public virtual int NewPoints()
-    { //Method to obtain point attribute from user.
-        Console.WriteLine("What are the associated points?");
-        _points = int.Parse(Console.ReadLine());
+    public string DisplayGoalName(string goal)
+    {
+        string[] jeStrings = goal.Split(":");
+        jeStrings = jeStrings[1].Split(",");
+        return jeStrings[0];
+    }
+    public int GetGoalIndicator()
+    {
+        Console.WriteLine("Which goal did you accomplish? ");
+        _goalType = int.Parse(Console.ReadLine());
+        return _goalType;
+    }
+    public virtual string IsGoalCompleted(string jeGoal)
+    {
+        return jeGoal;
+    }
+    public virtual int AwardPoints(string jeGoal)
+    {
         return _points;
     }
-    public virtual int IterateGoalCompletion(int jePoints, int jeBonusPoints)
-    {
-        return 0;
-    }
-    public bool IsComplete()
-    {
-        _ifComplete = true;
-        return _ifComplete;
-    }
-
 }

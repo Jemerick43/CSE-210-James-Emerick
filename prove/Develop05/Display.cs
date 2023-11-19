@@ -4,19 +4,15 @@ Purpose: Handles Display and various Load/save methods used throughout program
 Author: James Emerick
 Date: 11/15/2023
 */
+using System.IO;
 class Display : Goals
 {
-    private string _privateString;
-    private int _points = 0;
-    private List<string> _listOfGoals = new();
-    private string _fileName;
-    private string _menuText = "Select one of the following:\n\t1. Create new goal:\n\t2. List Goals:\n\t 3. Save Goals:\n\t 4. Load Goals:\n\t 5. Record Event\n\t6. Quit:";
+    string[] _tempStrings;
+    private string _menuText = "Select one of the following:\n\t1. Create new goal:\n\t2. List Goals:\n\t3. Save Goals:\n\t4. Load Goals:\n\t5. Record Event\n\t6. Quit:";
     private int _action;
-    private int _privateInt;
-    public Display() : base()
-    {
-
-    }
+    private string _fileName;
+    private List<string> _listOfGoals = new();
+    private List<Goals> _listOfGoalTypes = new();
 
     public int Menu() //handles display of menu and setting of the action of user
     {
@@ -25,68 +21,66 @@ class Display : Goals
         return _action;
     }
 
-    public void DisplayGoals(List<string> jeGoals) // displays each goal written to file
+    public List<string> LoadGoals(string jeFileName)  // Reads a specified file and returns a list containing each line
     {
-        foreach (string jeLine in jeGoals)
+        _fileName = jeFileName;
+        _tempStrings = System.IO.File.ReadAllLines(_fileName);
+        foreach (string jeGoal in _tempStrings)
         {
-            if (jeLine.Contains(','))
+            if (!jeGoal.Contains(','))
             {
-                Console.WriteLine(jeLine);
+                continue;
+            }
+            _listOfGoals.Add(jeGoal);
+        }
+        return _listOfGoals;
+    }
+    public List<Goals> LoadGoalTypes(string jeFileName)
+    {
+        _fileName = jeFileName;
+        _tempStrings = System.IO.File.ReadAllLines(_fileName);
+        foreach (string jeGoal in _listOfGoals)
+        {
+            if (!jeGoal.Contains(','))
+            {
+                continue;
             }
             else
-            { //special output for points (saved without a comma in its line)
-                /*  continue; //CHANGE MEEEEEE */
-            }
-        }
-    }
-    public override string NewName()
-    {
-        Console.WriteLine("Please enter the name of the file to load: ");
-        _privateString = Console.ReadLine();
-        return _privateString;
-    }
-    public List<string> LoadGoals(string jeFilename)  // Reads a specified file and returns a list containing each line
-    {
-        _fileName = jeFilename;
-        _listOfGoals = (List<string>)System.IO.File.ReadLines(_fileName);
-        return _listOfGoals;
-    }
-
-    public void SaveGoals(List<string> jeGoals, string jeFilename)
-    {
-        _fileName = jeFilename;
-        using (StreamWriter jeFile = new StreamWriter(_fileName))
-        {
-            foreach (string jeLine in jeGoals)
             {
-                jeFile.WriteLine(jeLine);
+                string[] tempString = jeGoal.Split(':');
+                if (tempString[0] == "Simple Goal")
+                {
+                    _listOfGoalTypes.Add(new Simple());
+                }
+                else if (tempString[0] == "Eternal Goal")
+                {
+                    _listOfGoalTypes.Add(new Eternal());
+                }
+                else if (tempString[0] == "Checklist Goal")
+                {
+                    _listOfGoalTypes.Add(new Checklist());
+                }
+            }
+
+        }
+        return _listOfGoalTypes;
+    }
+    public int LoadPoints(string jeFileName)
+    {
+        _fileName = jeFileName;
+        _tempStrings = System.IO.File.ReadAllLines(_fileName);
+        foreach (string jeGoal in _tempStrings)
+        {
+            if (!jeGoal.Contains(','))
+            {
+                _action = int.Parse(jeGoal);
+                return _action;
+            }
+            else
+            {
+                continue;
             }
         }
-    }
-    public override int NewPoints()
-    {
-        Console.WriteLine("How many points does the user get if they complete the checklist?");
-        _privateInt = int.Parse(Console.ReadLine());
-        return _privateInt;
-    }
-
-    public List<string> SetGoal()
-    {
-        Goals parent = new();
-        _privateInt = parent.NewGoal();
-        if (_privateInt == 3)
-        {
-            _privateString = 3 + "," + parent.NewName() + "," + "[ ]" + parent.NewPoints() + "," + 0 + "/" + parent.TimesToComplete() + "," + NewPoints();
-        }
-        else
-        {
-            _privateString = parent.NewGoal() + "," + parent.NewName() + "[ ]" + "," + parent.NewPoints();
-        }
-        _listOfGoals.Add(_privateString);
-        return _listOfGoals;
-    }
-    public virtual int GetPoints()
-    {
-        return _points;
+        return _action;
     }
 }
