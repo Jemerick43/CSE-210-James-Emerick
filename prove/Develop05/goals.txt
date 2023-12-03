@@ -1,4 +1,1 @@
-0
-Simple Goal:Jump,Jump,200,False
-Eternal Goal:Go to church,Go to church every day,500
-Checklist Goal:List,CHeckilst of normal things,0/7,200,1000
+
